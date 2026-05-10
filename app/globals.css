@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+    --font-dm-sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #080808;
+    color: #F0EDE4;
+    font-family: var(--font-dm-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: #C9A84C33;
+    color: #F0EDE4;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #111; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: #C9A84C; }
+}
+
+@layer components {
+  .font-display {
+    font-family: var(--font-cormorant);
+  }
+
+  /* Grain overlay for depth */
+  .grain::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    z-index: 9999;
+  }
+
+  /* Progress bar animation */
+  .progress-fill {
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Card hover */
+  .card-hover {
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Choice button states */
+  .choice-btn {
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .choice-btn:active {
+    transform: scale(0.99);
+  }
+
+  /* Scale dot */
+  .scale-dot {
+    transition: transform 0.1s ease, opacity 0.1s ease;
+  }
+  .scale-dot:hover {
+    transform: scale(1.15);
+  }
+  .scale-dot:active {
+    transform: scale(0.95);
+  }
+
+  /* Shimmer animation for loading states */
+  .shimmer {
+    background: linear-gradient(90deg, #161616 25%, #1E1E1E 50%, #161616 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Prayer text styling */
+  .prayer-text {
+    font-family: var(--font-cormorant);
+    font-style: italic;
+    line-height: 1.9;
+  }
+
+  /* Staggered fade-in for lists */
+  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position:  200% 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in  { animation: fadeIn  0.6s ease forwards; }
+.animate-fade-up  { animation: fadeUp  0.7s ease forwards; }
+.animate-scale-in { animation: scaleIn 0.5s ease forwards; }
+
+/* Mobile tap highlight */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Prevent text select on buttons */
+button { user-select: none; }
